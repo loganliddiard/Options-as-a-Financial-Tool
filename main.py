@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from scipy.stats import norm, beta, gamma , probplot
+from scipy.stats import norm, beta , probplot
 
 def fit_graph(data,dist_type,name):
 
@@ -42,26 +42,6 @@ def fit_graph(data,dist_type,name):
 
         plt.title(f"Beta Fit results: a = {a:.2f}, b = {b:.2f}, loc = {loc:.2f}, scale = {scale:.2f}")
      
-    elif dist_type == gamma:
-        # Fit the data to a gamma distribution
-        shape, loc, scale = gamma.fit(data['value'])
-
-        # Print the estimated parameters
-        print(f"Estimated shape: {shape}")
-        print(f"Estimated loc: {loc}")
-        print(f"Estimated scale: {scale}")
-
-        # Plot the histogram of the data and the fitted PDF
-
-
-        # Plot the fitted PDF
-        xmin, xmax = plt.xlim()
-        x = np.linspace(xmin, xmax, 100)
-        p = gamma.pdf(x, shape, loc, scale)
-        plt.plot(x, p, 'k', linewidth=2,color='r')
-
-        plt.title(f"Gamma Fit results: shape = {shape:.2f}, loc = {loc:.2f}, scale = {scale:.2f}")
-
 
     plt.savefig(f"{name}.png")
     plt.clf()
@@ -69,7 +49,6 @@ def fit_graph(data,dist_type,name):
 def findBest(data,name):
 
     norm_mu, norm_std = norm.fit(data['value'])
-    gamma_shape, gamma_loc, gamma_scale = gamma.fit(data['value'])
     beta_a, beta_b, beta_loc, beta_scale = beta.fit(data['value'])
 
     # Plot the histogram with fitted PDFs
@@ -78,16 +57,13 @@ def findBest(data,name):
     # Plot PDF for each fitted distribution
     x = np.linspace(min(data['value']), max(data['value']), 100)
     pdf_beta = beta.pdf(x, beta_a, beta_b, beta_loc, beta_scale)
-    pdf_gamma = gamma.pdf(x, gamma_shape, gamma_loc, gamma_scale)
     pdf_norm = norm.pdf(x, norm_mu, norm_std)
 
     plt.plot(x, pdf_beta, 'r-', label='Beta')
-    plt.plot(x, pdf_gamma, 'b-', label='Gamma')
     plt.plot(x, pdf_norm, 'k-', label='Normal')
 
     plt.legend()
     plt.title('Fitted PDFs vs Data')
-    plt.show()
 
     # Generate QQ-plots for each distribution
     plt.figure(figsize=(12, 4))
@@ -96,11 +72,6 @@ def findBest(data,name):
     plt.subplot(1, 3, 1)
     probplot(data['value'], dist="beta", sparams=(beta_a, beta_b, beta_loc, beta_scale), plot=plt)
     plt.title("QQ-Plot Beta")
-
-    # QQ-plot for gamma distribution
-    plt.subplot(1, 3, 2)
-    probplot(data['value'], dist="gamma", sparams=(gamma_shape, gamma_loc, gamma_scale), plot=plt)
-    plt.title("QQ-Plot Gamma")
 
     # QQ-plot for normal distribution
     plt.subplot(1, 3, 3)
@@ -122,12 +93,9 @@ if __name__ == "__main__":
     
     fit_graph(df1,norm,"stock1_normal")
     fit_graph(df1,beta,"stock1_beta")
-    fit_graph(df1,gamma,"stock1_gamma")
 
     fit_graph(df2,norm,"stock2_normal")
     fit_graph(df2,beta,"stock2_beta")
-    fit_graph(df2,gamma,"stock2_gamma")
-
 
     findBest(df1,"stock1")
     findBest(df2,"stock2")
