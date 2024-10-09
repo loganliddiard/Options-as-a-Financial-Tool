@@ -119,6 +119,19 @@ def findBest(data, name):
     print(f"KS test for Log-Normal distribution: Statistic = {ks_stat_lognorm}, p-value = {p_value_lognorm}")
 
 
+    ##reported best score
+    lowest = min(ks_stat_norm,ks_stat_beta,ks_stat_lognorm)
+    
+    if lowest == ks_stat_norm:
+        dist_type = "normal"
+    elif lowest == ks_stat_beta:
+        dist_type = "beta"
+    elif lowest == ks_stat_lognorm:
+        dist_type = "log normal"
+
+    print(f"\n\nFor {name}, the lowest KS test score was {min(ks_stat_norm,ks_stat_beta,ks_stat_lognorm)} making {dist_type} distribution the best fit\n")
+
+
 ##Main function
 if __name__ == "__main__":
 
