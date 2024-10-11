@@ -78,6 +78,22 @@ There are a few different explainations for the differences between them. Especi
     TODO
 
 
-## Part 3
+## Part 3: Stochastic Jumps and Basket Option Pricing
 
-    TODO
+To model the future price paths of the underlying assets of the basket option, we opted to use the lognormal distribution. This is because both stock 1 and stock 2 were shown to be well-represented by the lognormal distribution, so for simplicity's sake, we chose lognormal for both of them. Here is an example visualization of the price paths:
+
+<p align="center">
+  <img src="basket_price_paths" alt="Basket Option Price Paths">
+</p>
+
+We then calculated the option price for two scenarios and compared them.
+
+Scenario 1: The option pays off if it outperforms the average value of stock1 and stock2 at maturity.
+Scenario 2: The option pays off if it outperforms the maximum value of either stock1 or stock2 at maturity.
+
+Here is an example output from our program:
+
+    Basket Option Price (Scenario 1 - Outperform Average): $273.29
+    Basket Option Price (Scenario 2 - Outperform Maximum): $529.61
+    Comparison: Scenario 2 price is 1.94 times Scenario 1 price
+
