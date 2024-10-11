@@ -83,7 +83,7 @@ There are a few different explainations for the differences between them. Especi
 To model the future price paths of the underlying assets of the basket option, we opted to use the lognormal distribution. This is because both stock 1 and stock 2 were shown to be well-represented by the lognormal distribution, so for simplicity's sake, we chose lognormal for both of them. Here is an example visualization of the price paths:
 
 <p align="center">
-  <img src="basket_price_paths" alt="Basket Option Price Paths">
+  <img src="basket_price_paths.png" alt="Basket Option Price Paths">
 </p>
 
 We then calculated the option price for two scenarios and compared them.
