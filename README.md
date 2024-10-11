@@ -3,6 +3,8 @@
 ## Team Members:
     - Logan Liddiard
     - Joel Pierson
+    - Ben Tomlinson
+    - Kaden Hart
 
 ## Usage
 
@@ -105,6 +107,7 @@ To model the future price paths of the underlying assets of the basket option, w
 We then calculated the option price for two scenarios and compared them.
 
 Scenario 1: The option pays off if it outperforms the average value of stock1 and stock2 at maturity.
+
 Scenario 2: The option pays off if it outperforms the maximum value of either stock1 or stock2 at maturity.
 
 Here is an example output from our program:
@@ -113,3 +116,7 @@ Here is an example output from our program:
     Basket Option Price (Scenario 2 - Outperform Maximum): $529.61
     Comparison: Scenario 2 price is 1.94 times Scenario 1 price
 
+The basket price that is weighed on the average value of both stocks ends up being much cheaper than the one weighed off of a maximum. This is likely becasue the variance of the stock paths will usually be large over many iterations, while the average values stay relatively stagnant.
+
+Risk and Reward: The higher price for Scenario 2 indicates a greater risk associated with the option, as it depends on extreme performance from either stock, while Scenario 1 is more moderate, relying on average performance.
+The difference in prices may suggest differing market perceptions of the stocks' volatility and potential future performance. If investors are more confident about one stock's potential to outperform, they might be willing to pay more for that scenario.
