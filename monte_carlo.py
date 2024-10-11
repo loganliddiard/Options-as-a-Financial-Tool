@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Set a random seed to replicate results
-# np.random.seed(42)
+np.random.seed(42)
 
 # European call payoff calculation
 def european_call_payoff(strike, stock_price):

@@ -6,8 +6,10 @@
 
 ## Usage
 
-`python main.py`
-
+* `python main.py` for running all 3 parts.
+* `python best_fit.py` for running part 1.
+* `python monte_carlo.py` for running part 2.
+* `python part3.py` for running part 3.
 ## Requirements:
 
     numpy
@@ -73,9 +75,23 @@ However for stock one. It seems that the beta distribtuion is a better fit with 
 
 There are a few different explainations for the differences between them. Especially since they are two different tests that have different rules for what defines best fitness. 
 
-## Part 2
+## Part 2: Monte Carlo Simulation for Vanilla European Option Pricing
 
-    TODO
+In this section, we implemented a Monte Carlo simulation to estimate the price of a European option. The assumption was made that the asset would follow a beta distrubtion with further parameters defined by the assignment. We performed 5000 simulations to obtain the price paths. Using these paths, we calculated the payoff at the option's maturity and discounted it to present value using a risk-free rate of 1%.
+
+After running 5000 simulations, we obtained the following results:
+```
+Average Stock Price at Maturity: $868.77
+Estimated European Call Option Price $761.12
+```
+
+These results show a strong upward movement in stock price over the simulated year, driven largely by the specific parameters of the Beta distribution (showing a left skewed distribution) and the drift and volatility applied. The high option price suggests that the underlying stock significantly exceeds the strike price, leading to substantial payoffs. I would highly suggest investing in either the stock or European Call Option if this distribution were an accurate portrayal of the stock's future price movements. 
+
+<p align='center'>
+  <img src='stock_price_simulation.png' alt='montecarlo simulation'>
+</p>
+
+
 
 
 ## Part 3: Stochastic Jumps and Basket Option Pricing

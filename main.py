@@ -1,6 +1,6 @@
 import best_fit
 import monte_carlo
-import stochastic_jumps
+import part3
 
 if __name__ == "__main__":
     # Run Part 1 - Best Fit Analysis
@@ -10,6 +10,6 @@ if __name__ == "__main__":
     monte_carlo.main()
 
     # Run Part 3 - Stochastic Jumps and Basket Option Pricing
-    stochastic_jumps.main()
+    part3.main()
 
     print("\nAll scripts executed successfully!")
