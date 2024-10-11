@@ -63,12 +63,12 @@ paths = 5000
 risk_free_rate = 0.01  # Assume 1% risk-free rate
 
 # Load stock data
-stock1_data = pd.read_csv('stock1.csv')
-stock2_data = pd.read_csv('stock2-1.csv')
+stock1_data = pd.read_csv('stock1.csv', header=None, names=['Price'])
+stock2_data = pd.read_csv('stock2-1.csv', header=None, names=['Price'])
 
 # Calculate daily returns for both stocks
-stock1_returns = calculate_daily_returns(stock1_data['value'])
-stock2_returns = calculate_daily_returns(stock2_data['value'])
+stock1_returns = calculate_daily_returns(stock1_data['Price'])
+stock2_returns = calculate_daily_returns(stock2_data['Price'])
 
 # Filter out non-positive returns to fit log-normal distribution
 stock1_returns = filter_positive_values(stock1_returns)
