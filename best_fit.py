@@ -133,13 +133,12 @@ def findBest(data, name):
 
 
 ##Main function
-if __name__ == "__main__":
-
+def main():
     stock1 = "stock1.csv"
     stock2 = "stock2-1.csv"
 
-    df1 = pd.read_csv(stock1)
-    df2 = pd.read_csv(stock2)
+    df1 = pd.read_csv('stock1.csv', header=None, names=['value'])
+    df2 = pd.read_csv('stock2-1.csv', header=None, names=['value'])
 
     ##allows us to create legend of two different types of distributions we will be fitting and comparing
     handles = [plt.Line2D([], [], color='red', label='Normal'),
@@ -172,10 +171,13 @@ if __name__ == "__main__":
     plt.savefig("stock2_distributions.png")
     plt.clf()
 
-##Finding best
+    ##Finding best
 
     print("\n---------------------------\n")
     print("testing and graphing stock 1 data...")
     findBest(df1,"Stock 1")
     print("testing and graphing stock 2 data...")
     findBest(df2,"Stock 2")
+
+if __name__ == "__main__":
+    main()

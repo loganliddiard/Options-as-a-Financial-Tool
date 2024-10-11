@@ -35,36 +35,40 @@ def monte_carlo_option_pricing(price_paths, strike, risk_free_rate, T):
         call_payoffs[i] = european_call_payoff(strike, final_price) * discount_factor
     return final_prices, call_payoffs
 
-# Parameters
-paths = 5000
-initial_price = 100
-drift = 0.03
-volatility = 17.04
-dt = 1/365
-T = 1
-strike = 100
-risk_free_rate = 0.01
+def main():
+    # Parameters
+    paths = 5000
+    initial_price = 100
+    drift = 0.03
+    volatility = 17.04
+    dt = 1/365
+    T = 1
+    strike = 100
+    risk_free_rate = 0.01
 
-# Beta distribution
-beta_a, beta_b = 9, 10
-shift = 0.35
+    # Beta distribution
+    beta_a, beta_b = 9, 10
+    shift = 0.35
 
-# Simulate price paths
-price_paths = simulate_price_paths_beta(initial_price, drift, volatility, beta_a, beta_b, shift, dt, T, paths)
-# Monte Carlo pricing
-final_prices, call_payoffs = monte_carlo_option_pricing(price_paths, strike, risk_free_rate, T)
+    # Simulate price paths
+    price_paths = simulate_price_paths_beta(initial_price, drift, volatility, beta_a, beta_b, shift, dt, T, paths)
+    # Monte Carlo pricing
+    final_prices, call_payoffs = monte_carlo_option_pricing(price_paths, strike, risk_free_rate, T)
 
-# Plot the set
-for i in range(min(paths, 10)):
-    plt.plot(price_paths[i])
-plt.xlabel('Days')
-plt.ylabel('Price')
-plt.title("Simulations of Stock Price Using Beta Distribution")
-plt.savefig('stock_price_simulation.png')
-# Results
+    # Plot the set
+    for i in range(min(paths, 10)):
+        plt.plot(price_paths[i])
+    plt.xlabel('Days')
+    plt.ylabel('Price')
+    plt.title("Simulations of Stock Price Using Beta Distribution")
+    plt.savefig('stock_price_simulation.png')
+    # Results
 
-average_price = np.average(final_prices)
-option_price = np.average(call_payoffs)
+    average_price = np.average(final_prices)
+    option_price = np.average(call_payoffs)
 
-print(f"Average stock price after {int(1 / dt) * T} days: ${average_price:.2f}")
-print(f"Calculated European Call Option Price: ${option_price:.2f}")
+    print(f"Average stock price after {int(1 / dt) * T} days: ${average_price:.2f}")
+    print(f"Calculated European Call Option Price: ${option_price:.2f}")
+
+if __name__ == "__main__":
+    main()
