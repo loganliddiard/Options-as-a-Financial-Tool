@@ -17,7 +17,7 @@ def simulate_geometric_brownian_motion(initial_price, mu, sigma, dt, T, paths):
             price_paths[i, t] = current_price
     return price_paths
 
-def monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_free_rate, scenario, T):
+def monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_free_rate, T, scenario):
     payoffs = np.zeros(price_paths1.shape[0])
     for i in range(price_paths1.shape[0]):
         final_price1 = price_paths1[i, -1]
@@ -37,7 +37,8 @@ def monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_f
     option_price = np.mean(payoffs) * np.exp(-risk_free_rate * T)
     return option_price
 
-def main():
+# Load and preprocess data
+if __name__ == "__main__":
     data1 = pd.read_csv('stock1.csv', header=None, names=['Price'])
     data2 = pd.read_csv('stock2-1.csv', header=None, names=['Price'])
 
@@ -47,6 +48,7 @@ def main():
     mu1, sigma1 = np.mean(log_returns1), np.std(log_returns1)
     mu2, sigma2 = np.mean(log_returns2), np.std(log_returns2)
 
+    # Simulation parameters
     paths = 10000
     initial_price1 = data1['Price'].iloc[-1]
     initial_price2 = data2['Price'].iloc[-1]
@@ -55,15 +57,19 @@ def main():
     strike = (initial_price1 + initial_price2) / 2  
     risk_free_rate = 0.01
 
+    # Annualize parameters
     mu1_annual, sigma1_annual = mu1 / dt, sigma1 / np.sqrt(dt)
     mu2_annual, sigma2_annual = mu2 / dt, sigma2 / np.sqrt(dt)
 
+    # Simulate price paths
     price_paths1 = simulate_geometric_brownian_motion(initial_price1, mu1_annual, sigma1_annual, dt, T, paths)
     price_paths2 = simulate_geometric_brownian_motion(initial_price2, mu2_annual, sigma2_annual, dt, T, paths)
 
-    option_price_scenario1 = monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_free_rate, 1, T)
-    option_price_scenario2 = monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_free_rate, 2, T)
+    # Calculate option prices for both scenarios
+    option_price_scenario1 = monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_free_rate, T, 1)
+    option_price_scenario2 = monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_free_rate, T, 2)
 
+    # Plotting
     plt.figure(figsize=(12, 6))
     for i in range(min(paths, 10)):
         plt.plot(price_paths1[i], color='r', alpha=0.5)
@@ -72,11 +78,9 @@ def main():
     plt.ylabel('Price')
     plt.title("Sample Paths of Stock Prices (Lognormal)")
     plt.legend(['Stock 1', 'Stock 2'])
-    plt.savefig('part_3_simulation')
+    plt.show()
 
+    # Print results
     print(f"Basket Option Price (Scenario 1 - Outperform Average): ${option_price_scenario1:.2f}")
     print(f"Basket Option Price (Scenario 2 - Outperform Maximum): ${option_price_scenario2:.2f}")
     print(f"\nComparison: Scenario 2 price is {option_price_scenario2/option_price_scenario1:.2f} times Scenario 1 price")
-
-if __name__ == "__main__":
-    main()
