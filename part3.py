@@ -38,7 +38,7 @@ def monte_carlo_basket_option_pricing(price_paths1, price_paths2, strike, risk_f
     return option_price
 
 # Load and preprocess data
-if __name__ == "__main__":
+def main():
     data1 = pd.read_csv('stock1.csv', header=None, names=['Price'])
     data2 = pd.read_csv('stock2-1.csv', header=None, names=['Price'])
 
@@ -84,3 +84,5 @@ if __name__ == "__main__":
     print(f"Basket Option Price (Scenario 1 - Outperform Average): ${option_price_scenario1:.2f}")
     print(f"Basket Option Price (Scenario 2 - Outperform Maximum): ${option_price_scenario2:.2f}")
     print(f"\nComparison: Scenario 2 price is {option_price_scenario2/option_price_scenario1:.2f} times Scenario 1 price")
+if __name__ == "__main__":
+    main()
